@@ -1,7 +1,14 @@
 import pandas as pd
 import numpy as np
-def load_data(filepath: str = "ecomdata.csv") -> pd.DataFrame:
-    df = pd.read_csv(filepath, encoding="latin-1", on_bad_lines="skip")
+def load_data(filepath: str = None) -> pd.DataFrame:
+    # If local file is provided, use it
+    if filepath:
+        return pd.read_csv(filepath, encoding="latin-1", on_bad_lines="skip")
+    
+    # Otherwise load from Google Drive
+    url = "https://drive.google.com/uc?id=1YKr-fw8Arb3iVHhdYrJxqQRakL-e--Fl"
+    df = pd.read_csv(url, encoding="latin-1", on_bad_lines="skip")
+    
     return df
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     # Remove nulls
@@ -177,7 +184,7 @@ def prepare_cohort_data(df: pd.DataFrame) -> dict:
 # PIPELINE ENTRY POINT
 # =============================================================================
 
-def run_pipeline(filepath: str = "ecomdata.csv") -> dict:
+def run_pipeline(filepath: str = None) -> dict:
     df = load_data(filepath)
     df = clean_data(df)
     df = engineer_features(df)
@@ -202,3 +209,4 @@ def run_pipeline(filepath: str = "ecomdata.csv") -> dict:
         "retention_table": cohort_results["retention_table"],
         "retention_pct": cohort_results["retention_pct"],
     }
+print("hellowordl")

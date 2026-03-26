@@ -181,4 +181,3 @@ st.sidebar.download_button(
     file_name="filtered_data.csv",
     mime="text/csv"
 )
-print("hello world")
